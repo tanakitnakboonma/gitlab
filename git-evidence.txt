@@ -1,0 +1,28 @@
+PS D:\git-lab-ee> git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   git-evidence.txt
+
+PS D:\git-lab-ee> git log --oneline --graph --decorate --all
+>> 
+* ffb904a (HEAD -> main, origin/main, origin/HEAD) Update
+* 124aba1 Initial commit
+PS D:\git-lab-ee> git remote -v
+origin  https://github.com/tanakitnakboonma/gitlab.git (fetch)
+origin  https://github.com/tanakitnakboonma/gitlab.git (push)
+PS D:\git-lab-ee> git status -sb
+## main...origin/main
+A  git-evidence.txt
+PS D:\git-lab-ee> python -m unittest -v
+test_invalid_resistance (test_electrical.TestDCAnalyzer.test_invalid_resistance) ... ok
+test_known_values (test_electrical.TestDCAnalyzer.test_known_values) ... ok
+test_zero_voltage (test_electrical.TestDCAnalyzer.test_zero_voltage) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
+PS D:\git-lab-ee> 
