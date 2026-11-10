@@ -31,5 +31,43 @@ class TestReferenceValues(unittest.TestCase):
         self.assertEqual(r["warning"], "")
 
 
+class TestValidation(unittest.TestCase):
+    def test_zero_or_negative_components(self):
+        for field in ("vcc", "r1", "r2", "rc", "re"):
+            with self.subTest(field=field):
+                with self.assertRaises(ValueError):
+                    calc(**{field: 0})
+                with self.assertRaises(ValueError):
+                    calc(**{field: -1})
+
+    def test_invalid_beta(self):
+        with self.assertRaises(ValueError):
+            calc(beta=0)
+        with self.assertRaises(ValueError):
+            calc(beta=-5)
+
+    def test_negative_vbe(self):
+        with self.assertRaises(ValueError):
+            calc(vbe=-0.1)
+
+    def test_non_numeric_blank_and_malformed(self):
+        for value in ("abc", "", None, "1,000"):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    calc(vcc=value)
+
+    def test_non_finite(self):
+        for value in (float("nan"), float("inf")):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    calc(r1=value)
+
+    def test_kohm_to_ohm_rejects_bad_values(self):
+        for value in (0, -1, "abc", ""):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    kohm_to_ohm(value)
+
+
 if __name__ == "__main__":
     unittest.main()
