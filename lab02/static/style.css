@@ -381,6 +381,13 @@ body {
   margin-top: 16px;
 }
 
+.model-note {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
 /* ---------- Messages ---------- */
 
 .error,

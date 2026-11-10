@@ -70,6 +70,8 @@ VCE = VC − VE
 
 ## 6. เอกสารอ้างอิง
 
-Design ฉบับเต็มและบันทึกการตัดสินใจ:
-`docs/superpowers/specs/2026-11-10-lab02-bjt-dc-bias-design.md`
-แผนพัฒนา: `docs/superpowers/plans/2026-11-10-lab02-bjt-dc-bias.md`
+- ทางเลือกและเหตุผลก่อนลงมือ: `lab02/docs/brainstorm.md`
+- บันทึก code review และสิ่งที่แก้: `lab02/docs/review.md`
+- Design ฉบับเต็มและบันทึกการตัดสินใจ:
+  `docs/superpowers/specs/2026-11-10-lab02-bjt-dc-bias-design.md`
+- แผนพัฒนา: `docs/superpowers/plans/2026-11-10-lab02-bjt-dc-bias.md`

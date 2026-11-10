@@ -29,6 +29,12 @@ class TestWeb(unittest.TestCase):
         self.assertIn("DC Bias Results", html)
         self.assertIn("Week 2 Goal", html)
 
+    def test_page_states_model_assumptions(self):
+        html = self.client.get("/").get_data(as_text=True)
+        self.assertIn("Model assumptions", html)
+        self.assertIn("constant β", html)
+        self.assertIn("ideal resistors", html)
+
     def test_post_valid_shows_results(self):
         response = self.post()
         self.assertEqual(response.status_code, 200)

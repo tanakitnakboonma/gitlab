@@ -12,5 +12,6 @@
 
 - แอป Flask อยู่ใน `lab02/`
 - วิธีติดตั้ง/รัน/เทสต์: ดู `lab02/README.md`
-- เอกสารประกอบ: `lab02/docs/design-note.md`, `lab02/docs/validation.md`,
+- เอกสารประกอบ: `lab02/docs/brainstorm.md`, `lab02/docs/design-note.md`,
+  `lab02/docs/validation.md`, `lab02/docs/review.md`,
   `lab02/docs/reflection.md`

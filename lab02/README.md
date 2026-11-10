@@ -23,10 +23,17 @@ lab02/
 ├── AGENTS.md               # AI coding conventions
 ├── git-evidence.txt        # real unittest / git output
 └── docs/
-    ├── design-note.md
-    ├── validation.md
-    └── reflection.md
+    ├── brainstorm.md       # ทางเลือกและเหตุผลก่อนลงมือ
+    ├── design-note.md      # สถาปัตยกรรม/สมการ/สมมติฐาน
+    ├── validation.md       # ตรวจผลกับ hand calculation
+    ├── review.md           # บันทึก code review และสิ่งที่แก้
+    ├── reflection.md       # สิ่งที่เรียนรู้
+    └── screenshot.jpg      # ภาพหน้าเว็บจริง
 ```
+
+## ภาพหน้าจอ
+
+![Lab 02 UI](docs/screenshot.jpg)
 
 ## สิ่งที่ต้องมี
 
@@ -128,6 +135,16 @@ VCE = VC − VE
 - Flask development server ใช้เฉพาะเครื่องพัฒนา (`127.0.0.1`) ไม่เปิดสู่เครือข่ายสาธารณะ
 - ห้าม commit `.venv/`, `.env`, API keys หรือ credentials
 - ตรวจ `git status` และ `git diff --staged` ก่อน push ทุกครั้ง
+
+## เอกสารและหลักฐานตามเกณฑ์ประเมิน
+
+| เกณฑ์ | หลักฐานใน repository |
+|---|---|
+| Brainstorm + Planning | `docs/brainstorm.md`, `docs/design-note.md`, และ spec/plan เต็มที่ `../docs/superpowers/` |
+| Flask Web App (multi-file / backend) | `app.py`, `dc_bias.py`, `templates/index.html`, `static/style.css`, `docs/screenshot.jpg` |
+| DC Bias ถูกหลักการ + หน่วย + สมมติฐาน | `dc_bias.py`, `docs/design-note.md` §3–4, บรรทัด Model assumptions บนหน้าเว็บ, `docs/validation.md` |
+| Automated Tests + Input Validation + Warning | `tests/test_dc_bias.py`, `tests/test_web.py`, `docs/validation.md`, `git-evidence.txt` |
+| Review Code + Commit/Push + README + Reflection | `docs/review.md`, `git log`, `README.md`, `docs/reflection.md` |
 
 ## แก้ปัญหาที่พบบ่อย
 
