@@ -47,6 +47,24 @@ h1 {
   font-size: 0.95rem;
 }
 
+.section-title {
+  margin: 22px 0 6px;
+  color: var(--blue);
+  font-size: 1.05rem;
+}
+
+.hint {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.note {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

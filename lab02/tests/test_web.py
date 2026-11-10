@@ -48,5 +48,11 @@ class TestWeb(unittest.TestCase):
         static_response.close()
 
 
+    def test_page_uses_thai_labels(self):
+        html = self.client.get("/").get_data(as_text=True)
+        self.assertIn("ป้อนค่าอุปกรณ์", html)
+        self.assertIn("กรอกความต้านทานเป็น kΩ", html)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -3,13 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BJT DC Bias Calculator — Voltage Divider Bias</title>
+  <title>เครื่องคำนวณ DC Bias ของ BJT — Voltage Divider Bias</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <main class="card">
-    <h1>BJT DC Bias Calculator — Voltage Divider Bias</h1>
-    <p class="subtitle">Voltage-Divider Bias · Forward-Active Approximation</p>
+    <h1>เครื่องคำนวณ DC Bias ของ BJT</h1>
+    <p class="subtitle">วงจรขยาย Common-Emitter แบบ Voltage-Divider Bias · สมมติฐาน Forward-Active</p>
+
+    <h2 class="section-title">ป้อนค่าอุปกรณ์</h2>
+    <p class="hint">กรอกความต้านทานเป็น kΩ (R1, R2, RC, RE) และแรงดันเป็น V</p>
 
     <form action="{{ url_for('calculate') }}" method="post">
       <div class="field">
@@ -40,7 +43,7 @@
         <label for="vbe">VBE (V)</label>
         <input id="vbe" name="vbe" inputmode="decimal" value="{{ form.vbe }}">
       </div>
-      <button type="submit">Calculate DC Bias</button>
+      <button type="submit">คำนวณ DC Bias</button>
     </form>
 
     {% if error %}
@@ -52,8 +55,9 @@
         <p class="warning">{{ result.warning }}</p>
       {% endif %}
 
+      <h2 class="section-title">ผลลัพธ์ DC Operating Point</h2>
       <table class="results">
-        <caption>DC Operating Point</caption>
+        <caption>แรงดันและกระแสที่คำนวณได้</caption>
         <tbody>
           <tr><th>VB</th><td>{{ "%.3f"|format(result.vb) }} V</td></tr>
           <tr><th>VE</th><td>{{ "%.3f"|format(result.ve) }} V</td></tr>
@@ -65,7 +69,8 @@
         </tbody>
       </table>
 
-      <p class="region">STATUS: {{ result.region }}</p>
+      <p class="region">สถานะการทำงาน: {{ result.region }}</p>
+      <p class="note">ผลลัพธ์ใช้ได้ภายใต้สมมติฐาน Forward-Active เท่านั้น</p>
     {% endif %}
   </main>
 </body>
