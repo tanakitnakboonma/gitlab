@@ -69,5 +69,22 @@ class TestValidation(unittest.TestCase):
                     kohm_to_ohm(value)
 
 
+class TestRegion(unittest.TestCase):
+    def test_cutoff_when_vth_below_vbe(self):
+        r = calc(r2=1_000)
+        self.assertEqual(r["region"], "Cutoff")
+        self.assertIn("cutoff", r["warning"].lower())
+
+    def test_saturation_when_vce_below_limit(self):
+        r = calc(re=100)
+        self.assertEqual(r["region"], "Saturation")
+        self.assertIn("saturation", r["warning"].lower())
+
+    def test_forward_active_has_no_warning(self):
+        r = calc()
+        self.assertEqual(r["region"], "Forward Active")
+        self.assertEqual(r["warning"], "")
+
+
 if __name__ == "__main__":
     unittest.main()

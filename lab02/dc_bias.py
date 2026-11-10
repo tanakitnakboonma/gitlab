@@ -56,6 +56,18 @@ def calculate_dc_bias(vcc, r1, r2, rc, re, beta, vbe):
     vc = vcc - ic * rc
     vce = vc - ve
 
+    if vth <= vbe or ib <= 0:
+        region = "Cutoff"
+        warning = ("VTH ≤ VBE หรือ IB ≤ 0: อยู่ในโหมด Cutoff "
+                   "ค่าที่แสดงมาจากสมการ forward-active และไม่ใช่ค่าที่ใช้ได้จริง")
+    elif vce < VCE_SATURATION:
+        region = "Saturation"
+        warning = ("VCE < 0.2 V: อยู่ในโหมด Saturation หรือใกล้เคียง "
+                   "ผลจาก forward-active approximation ไม่น่าเชื่อถือ")
+    else:
+        region = "Forward Active"
+        warning = ""
+
     return {
         "vth": vth,
         "rth": rth,
@@ -66,6 +78,6 @@ def calculate_dc_bias(vcc, r1, r2, rc, re, beta, vbe):
         "ve": ve,
         "vc": vc,
         "vce": vce,
-        "region": "Forward Active",
-        "warning": "",
+        "region": region,
+        "warning": warning,
     }
