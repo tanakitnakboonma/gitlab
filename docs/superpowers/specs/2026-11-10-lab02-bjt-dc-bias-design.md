@@ -253,5 +253,7 @@ STATUS: Forward Active
    `lab02/README.md`; ตัดบรรทัด "Temporary note for diff practice" ที่เป็น
    ของแบบฝึกหัด diff ออก
 
-คำตัดสินเพิ่มเติมระหว่างรีวิว: ไม่สร้าง `__init__.py` ใน `lab02/` หรือ
-`lab02/tests/` เพราะไม่จำเป็นเมื่อใช้คำสั่งด้านบน และรักษาโครงตาม §7.1
+คำตัดสินเพิ่มเติมระหว่างรีวิว: **ต้องมี** `lab02/tests/__init__.py` (ไฟล์ว่าง)
+เพื่อให้ `python -m unittest discover -s lab02/tests -t lab02 -v` จาก root ทำงานได้
+— ทดลองแล้วว่าไม่มีไฟล์นี้จะได้ `ImportError: Start directory is not importable`;
+ไม่ต้องมี `lab02/__init__.py` และโครงไฟล์อื่นคงตาม §7.1
