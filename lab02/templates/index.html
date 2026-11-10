@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BJT DC Bias Calculator</title>
+</head>
+<body>
+  <main class="card">
+    <h1>BJT DC Bias Calculator</h1>
+    <p class="subtitle">Voltage-Divider Bias · Forward-Active Approximation</p>
+
+    <form action="{{ url_for('calculate') }}" method="post">
+      <div class="field">
+        <label for="vcc">VCC (V)</label>
+        <input id="vcc" name="vcc" inputmode="decimal" value="{{ form.vcc }}">
+      </div>
+      <div class="field">
+        <label for="r1">R1 (kΩ)</label>
+        <input id="r1" name="r1" inputmode="decimal" value="{{ form.r1 }}">
+      </div>
+      <div class="field">
+        <label for="r2">R2 (kΩ)</label>
+        <input id="r2" name="r2" inputmode="decimal" value="{{ form.r2 }}">
+      </div>
+      <div class="field">
+        <label for="rc">RC (kΩ)</label>
+        <input id="rc" name="rc" inputmode="decimal" value="{{ form.rc }}">
+      </div>
+      <div class="field">
+        <label for="re">RE (kΩ)</label>
+        <input id="re" name="re" inputmode="decimal" value="{{ form.re }}">
+      </div>
+      <div class="field">
+        <label for="beta">β</label>
+        <input id="beta" name="beta" inputmode="decimal" value="{{ form.beta }}">
+      </div>
+      <div class="field">
+        <label for="vbe">VBE (V)</label>
+        <input id="vbe" name="vbe" inputmode="decimal" value="{{ form.vbe }}">
+      </div>
+      <button type="submit">Calculate DC Bias</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if result %}
+      {% if result.warning %}
+        <p class="warning">{{ result.warning }}</p>
+      {% endif %}
+
+      <table class="results">
+        <caption>DC Operating Point</caption>
+        <tbody>
+          <tr><th>VB</th><td>{{ "%.3f"|format(result.vb) }} V</td></tr>
+          <tr><th>VE</th><td>{{ "%.3f"|format(result.ve) }} V</td></tr>
+          <tr><th>VC</th><td>{{ "%.3f"|format(result.vc) }} V</td></tr>
+          <tr><th>VCE</th><td>{{ "%.3f"|format(result.vce) }} V</td></tr>
+          <tr><th>IC</th><td>{{ "%.3f"|format(result.ic * 1000) }} mA</td></tr>
+          <tr><th>IB</th><td>{{ "%.3f"|format(result.ib * 1000000) }} µA</td></tr>
+          <tr><th>IE</th><td>{{ "%.3f"|format(result.ie * 1000) }} mA</td></tr>
+        </tbody>
+      </table>
+
+      <p class="region">STATUS: {{ result.region }}</p>
+    {% endif %}
+  </main>
+</body>
+</html>
