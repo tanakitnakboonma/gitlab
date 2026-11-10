@@ -1,0 +1,44 @@
+﻿=== unittest ===
+test_converts_kohm_to_ohm (tests.test_dc_bias.TestKohmToOhm.test_converts_kohm_to_ohm) ... ok
+test_example_circuit (tests.test_dc_bias.TestReferenceValues.test_example_circuit) ... ok
+test_cutoff_when_vth_below_vbe (tests.test_dc_bias.TestRegion.test_cutoff_when_vth_below_vbe) ... ok
+test_forward_active_has_no_warning (tests.test_dc_bias.TestRegion.test_forward_active_has_no_warning) ... ok
+test_saturation_when_vce_below_limit (tests.test_dc_bias.TestRegion.test_saturation_when_vce_below_limit) ... ok
+test_invalid_beta (tests.test_dc_bias.TestValidation.test_invalid_beta) ... ok
+test_kohm_to_ohm_names_the_field (tests.test_dc_bias.TestValidation.test_kohm_to_ohm_names_the_field) ... ok
+test_kohm_to_ohm_rejects_bad_values (tests.test_dc_bias.TestValidation.test_kohm_to_ohm_rejects_bad_values) ... ok
+test_negative_vbe (tests.test_dc_bias.TestValidation.test_negative_vbe) ... ok
+test_non_finite (tests.test_dc_bias.TestValidation.test_non_finite) ... ok
+test_non_numeric_blank_and_malformed (tests.test_dc_bias.TestValidation.test_non_numeric_blank_and_malformed) ... ok
+test_zero_or_negative_components (tests.test_dc_bias.TestValidation.test_zero_or_negative_components) ... ok
+test_get_form (tests.test_web.TestWeb.test_get_form) ... ok
+test_page_uses_mockup_layout (tests.test_web.TestWeb.test_page_uses_mockup_layout) ... ok
+test_post_active_shows_ok_status (tests.test_web.TestWeb.test_post_active_shows_ok_status) ... ok
+test_post_blank_field_shows_error (tests.test_web.TestWeb.test_post_blank_field_shows_error) ... ok
+test_post_cutoff_shows_warning (tests.test_web.TestWeb.test_post_cutoff_shows_warning) ... ok
+test_post_invalid_shows_error (tests.test_web.TestWeb.test_post_invalid_shows_error) ... ok
+test_post_keeps_submitted_values (tests.test_web.TestWeb.test_post_keeps_submitted_values) ... ok
+test_post_missing_field_shows_error (tests.test_web.TestWeb.test_post_missing_field_shows_error) ... ok
+test_post_saturation_shows_warning (tests.test_web.TestWeb.test_post_saturation_shows_warning) ... ok
+test_post_valid_shows_results (tests.test_web.TestWeb.test_post_valid_shows_results) ... ok
+test_units_and_stylesheet_are_linked (tests.test_web.TestWeb.test_units_and_stylesheet_are_linked) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.041s
+
+OK
+=== git log ===
+6423b8e feat(lab02): rebuild UI to the Lab 02 mockup
+1452815 fix(lab02): name resistor fields in validation errors
+bf27a74 docs(lab02): record verification evidence
+3c18ec3 fix(lab02): localize UI to Thai
+3b20713 docs(lab02): add README, validation notes and reflection draft
+9ca7949 feat(lab02): style the DC bias calculator page
+e1cda90 feat(lab02): add Flask routes and results page
+99837c0 feat(lab02): flag cutoff and saturation regions
+ed60851 feat(lab02): validate DC bias inputs
+1cb1b4a test(lab02): make tests discoverable from repo root
+5c05408 feat(lab02): add DC bias core calculation
+6b47479 docs: add Lab 02 implementation plan
+=== git status ===
+ M lab02/git-evidence.txt

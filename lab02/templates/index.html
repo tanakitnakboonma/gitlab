@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 02: BJT DC Bias Web App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="brand">
+        <svg class="chip-logo" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="14" y="14" width="36" height="36" rx="9" fill="#0e8f84"></rect>
+          <rect x="23" y="23" width="18" height="18" rx="4" fill="#eafaf7"></rect>
+          <g stroke="#0e8f84" stroke-width="3" stroke-linecap="round">
+            <path d="M22 6v8M32 6v8M42 6v8M22 50v8M32 50v8M42 50v8"></path>
+            <path d="M6 22h8M6 32h8M6 42h8M50 22h8M50 32h8M50 42h8"></path>
+          </g>
+        </svg>
+        <div class="brand-text">
+          <h1>Lab 02: BJT DC Bias Web App</h1>
+          <p class="subtitle">ENG29 2121 – Common Emitter (Voltage Divider Bias)</p>
+        </div>
+      </div>
+      <p class="course-badge">Computer Programming for Electrical Engineers</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel input-panel">
+        <h2>Input Parameters</h2>
+        <form action="{{ url_for('calculate') }}" method="post">
+          <p class="hint">Resistances in kΩ, voltages in V.</p>
+          <div class="fields">
+            <div class="field wide">
+              <label class="field-label" for="vcc">VCC <span class="unit">V</span></label>
+              <input id="vcc" name="vcc" inputmode="decimal" autocomplete="off" value="{{ form.vcc }}">
+            </div>
+            <div class="field">
+              <label class="field-label" for="r1">R1 <span class="unit">kΩ</span></label>
+              <input id="r1" name="r1" inputmode="decimal" autocomplete="off" value="{{ form.r1 }}">
+            </div>
+            <div class="field">
+              <label class="field-label" for="r2">R2 <span class="unit">kΩ</span></label>
+              <input id="r2" name="r2" inputmode="decimal" autocomplete="off" value="{{ form.r2 }}">
+            </div>
+            <div class="field">
+              <label class="field-label" for="rc">RC <span class="unit">kΩ</span></label>
+              <input id="rc" name="rc" inputmode="decimal" autocomplete="off" value="{{ form.rc }}">
+            </div>
+            <div class="field">
+              <label class="field-label" for="re">RE <span class="unit">kΩ</span></label>
+              <input id="re" name="re" inputmode="decimal" autocomplete="off" value="{{ form.re }}">
+            </div>
+            <div class="field">
+              <label class="field-label" for="beta">β <span class="unit">hFE</span></label>
+              <input id="beta" name="beta" inputmode="decimal" autocomplete="off" value="{{ form.beta }}">
+            </div>
+            <div class="field">
+              <label class="field-label" for="vbe">VBE <span class="unit">V</span></label>
+              <input id="vbe" name="vbe" inputmode="decimal" autocomplete="off" value="{{ form.vbe }}">
+            </div>
+          </div>
+          <button class="calculate" type="submit">Calculate DC Bias</button>
+        </form>
+      </section>
+
+      <section class="panel circuit-panel">
+        <h2>Circuit: Common-Emitter Amplifier</h2>
+        <svg class="schematic" viewBox="0 0 400 330" role="img"
+             aria-label="Voltage-divider biased NPN common-emitter amplifier schematic">
+          <g class="wire">
+            <path d="M40 32H340"></path>
+            <path d="M110 32V58M110 98V176M110 176H180"></path>
+            <path d="M110 176V206M110 246V292"></path>
+            <path d="M270 32V58M270 98V140M270 140H208M208 140V152"></path>
+            <path d="M180 166L208 152"></path>
+            <path d="M180 186L208 200M208 200V218M208 258V292"></path>
+            <path d="M110 292H208"></path>
+          </g>
+
+          <g class="component">
+            <rect x="100" y="58" width="20" height="40" rx="3"></rect>
+            <rect x="100" y="206" width="20" height="40" rx="3"></rect>
+            <rect x="260" y="58" width="20" height="40" rx="3"></rect>
+            <rect x="198" y="218" width="20" height="40" rx="3"></rect>
+          </g>
+
+          <g class="transistor">
+            <circle cx="205" cy="176" r="30"></circle>
+            <path d="M180 158V194"></path>
+            <path class="arrow" d="M186 190L201 198L196 185Z"></path>
+          </g>
+
+          <g class="node">
+            <circle cx="110" cy="176" r="3.2"></circle>
+            <circle cx="208" cy="140" r="3.2"></circle>
+            <circle cx="208" cy="214" r="3.2"></circle>
+          </g>
+
+          <g class="ground">
+            <path d="M159 292V300M147 300H171M150 305H168M154 310H164"></path>
+          </g>
+
+          <g class="label">
+            <text class="ref" x="88" y="70" text-anchor="end">R1</text>
+            <text x="88" y="86" text-anchor="end">{{ form.r1 }} kΩ</text>
+            <text class="ref" x="88" y="218" text-anchor="end">R2</text>
+            <text x="88" y="234" text-anchor="end">{{ form.r2 }} kΩ</text>
+            <text class="ref" x="300" y="70">RC</text>
+            <text x="300" y="86">{{ form.rc }} kΩ</text>
+            <text class="ref" x="230" y="230">RE</text>
+            <text x="230" y="246">{{ form.re }} kΩ</text>
+            <text class="ref" x="243" y="170">Q1</text>
+            <text x="243" y="186">β = {{ form.beta }}</text>
+            <text class="ref" x="190" y="22" text-anchor="middle">VCC = {{ form.vcc }} V</text>
+          </g>
+        </svg>
+        <p class="schematic-caption">NPN transistor · Forward-Active approximation · VBE = {{ form.vbe }} V</p>
+      </section>
+
+      <section class="panel results-panel">
+        <h2>DC Bias Results</h2>
+
+        {% if error %}
+          <div class="error">{{ error }}</div>
+          <div class="status idle">
+            <span class="status-title">Input rejected</span>
+            <span>Fix the highlighted value and calculate again.</span>
+          </div>
+        {% elif result %}
+          <table class="results">
+            <tbody>
+              <tr><th>VB</th><td>{{ "%.3f"|format(result.vb) }} V</td></tr>
+              <tr><th>VE</th><td>{{ "%.3f"|format(result.ve) }} V</td></tr>
+              <tr><th>VC</th><td>{{ "%.3f"|format(result.vc) }} V</td></tr>
+              <tr><th>VCE</th><td>{{ "%.3f"|format(result.vce) }} V</td></tr>
+              <tr><th>IB</th><td>{{ "%.3f"|format(result.ib * 1000000) }} µA</td></tr>
+              <tr><th>IC</th><td>{{ "%.3f"|format(result.ic * 1000) }} mA</td></tr>
+              <tr><th>IE</th><td>{{ "%.3f"|format(result.ie * 1000) }} mA</td></tr>
+            </tbody>
+          </table>
+
+          {% if result.warning %}
+            <div class="warning">{{ result.warning }}</div>
+            <div class="status warn">
+              <span class="status-title">{{ result.region }}</span>
+              <span>Operating point outside the forward-active region — treat these numbers as a first estimate only.</span>
+            </div>
+          {% else %}
+            <div class="status ok">
+              <span class="status-title">Active region approximation OK</span>
+              <span>VCE is above the saturation limit for this model.</span>
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="status idle">
+            <span class="status-title">Waiting for input</span>
+            <span>Enter the bias values and press Calculate DC Bias.</span>
+          </div>
+        {% endif %}
+      </section>
+    </main>
+
+    <footer class="goal">
+      <div class="goal-badge">2</div>
+      <div class="goal-text">
+        <h2>Week 2 Goal</h2>
+        <p>Analyse a BJT common-emitter amplifier with voltage-divider bias and verify its DC operating point against hand calculations.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
