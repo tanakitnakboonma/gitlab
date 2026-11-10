@@ -39,5 +39,14 @@ class TestWeb(unittest.TestCase):
         self.assertIn("Cutoff", html)
 
 
+    def test_units_and_stylesheet_are_linked(self):
+        html = self.client.get("/").get_data(as_text=True)
+        self.assertIn("kΩ", html)
+        self.assertIn('rel="stylesheet"', html)
+        static_response = self.client.get("/static/style.css")
+        self.assertEqual(static_response.status_code, 200)
+        static_response.close()
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BJT DC Bias Calculator</title>
+  <title>BJT DC Bias Calculator — Voltage Divider Bias</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <main class="card">
-    <h1>BJT DC Bias Calculator</h1>
+    <h1>BJT DC Bias Calculator — Voltage Divider Bias</h1>
     <p class="subtitle">Voltage-Divider Bias · Forward-Active Approximation</p>
 
     <form action="{{ url_for('calculate') }}" method="post">
