@@ -22,6 +22,13 @@ class TestWeb(unittest.TestCase):
         for field in ("vcc", "r1", "r2", "rc", "re", "beta", "vbe"):
             self.assertIn(f'name="{field}"', html)
 
+    def test_page_uses_mockup_layout(self):
+        html = self.client.get("/").get_data(as_text=True)
+        self.assertIn("Input Parameters", html)
+        self.assertIn("Circuit: Common-Emitter Amplifier", html)
+        self.assertIn("DC Bias Results", html)
+        self.assertIn("Week 2 Goal", html)
+
     def test_post_valid_shows_results(self):
         response = self.post()
         self.assertEqual(response.status_code, 200)
@@ -29,15 +36,48 @@ class TestWeb(unittest.TestCase):
         self.assertIn("1.942", html)
         self.assertIn("8.052", html)
 
+    def test_post_active_shows_ok_status(self):
+        html = self.post().get_data(as_text=True)
+        self.assertIn("Active region approximation OK", html)
+
     def test_post_invalid_shows_error(self):
         response = self.post(r1="0")
         self.assertEqual(response.status_code, 200)
-        self.assertIn("มากกว่าศูนย์", response.get_data(as_text=True))
+        html = response.get_data(as_text=True)
+        self.assertIn('class="error"', html)
+        self.assertIn("R1", html)
+        self.assertIn("มากกว่าศูนย์", html)
+
+    def test_post_blank_field_shows_error(self):
+        html = self.post(r1="").get_data(as_text=True)
+        self.assertIn('class="error"', html)
+        self.assertIn("R1", html)
+
+    def test_post_missing_field_shows_error(self):
+        data = {"vcc": "12", "r1": "100", "rc": "2.2",
+                "re": "1", "beta": "100", "vbe": "0.70"}
+        response = self.client.post("/calculate", data=data)
+        self.assertEqual(response.status_code, 200)
+        html = response.get_data(as_text=True)
+        self.assertIn('class="error"', html)
+        self.assertIn("R2", html)
+
+    def test_post_keeps_submitted_values(self):
+        html = self.post(r1="0").get_data(as_text=True)
+        self.assertIn('name="r1"', html)
+        self.assertIn('value="0"', html)
 
     def test_post_cutoff_shows_warning(self):
         html = self.post(r2="1").get_data(as_text=True)
+        self.assertIn('class="warning"', html)
         self.assertIn("Cutoff", html)
+        self.assertIn("ไม่ใช่ค่าที่ใช้ได้จริง", html)
 
+    def test_post_saturation_shows_warning(self):
+        html = self.post(re="0.1").get_data(as_text=True)
+        self.assertIn('class="warning"', html)
+        self.assertIn("Saturation", html)
+        self.assertIn("ไม่น่าเชื่อถือ", html)
 
     def test_units_and_stylesheet_are_linked(self):
         html = self.client.get("/").get_data(as_text=True)
@@ -46,12 +86,6 @@ class TestWeb(unittest.TestCase):
         static_response = self.client.get("/static/style.css")
         self.assertEqual(static_response.status_code, 200)
         static_response.close()
-
-
-    def test_page_uses_thai_labels(self):
-        html = self.client.get("/").get_data(as_text=True)
-        self.assertIn("ป้อนค่าอุปกรณ์", html)
-        self.assertIn("กรอกความต้านทานเป็น kΩ", html)
 
 
 if __name__ == "__main__":

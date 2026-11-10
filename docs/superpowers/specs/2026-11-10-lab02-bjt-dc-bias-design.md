@@ -47,7 +47,8 @@ HTTP Routing (Flask), Engineering Logic (Python) และ Tests ออกจา
 
 - Python 3.12.7 (มีในเครื่อง), Flask ติดตั้งใน `.venv` ของโปรเจกต์
 - ใช้ `unittest` จาก stdlib (ไม่เพิ่ม pytest) ตามคำสั่งรันใน handout
-- UI ภาษาไทยโดยมีชื่อทางเทคนิคภาษาอังกฤษ; identifier ในโค้ดเป็นภาษาอังกฤษ
+- UI ภาษาอังกฤษตาม mockup (หัวข้อ/ป้าย/สถานะ) โดยมีข้อความ error/warning
+  ภาษาไทย; identifier ในโค้ดเป็นภาษาอังกฤษ
 - แอปอยู่ในโฟลเดอร์ `lab02/`; ไฟล์ Lab 1 ที่ root ไม่ถูกแก้
 - Flask dev server ใช้เฉพาะ localhost; ไม่ commit `.venv/`, `.env`, คีย์
 - ต้องไม่พึ่ง service ภายนอกตอนรัน

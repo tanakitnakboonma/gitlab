@@ -21,7 +21,8 @@ python -m unittest discover -s lab02/tests -t lab02 -v
 - `dc_bias.py` ต้องเป็น pure engineering logic: ห้าม import Flask หรือรู้จัก HTML/HTTP
 - `app.py` รับ HTTP, แปลงหน่วย kΩ → Ω, เรียก `dc_bias.py`, แล้ว render template
 - Template ต้องไม่ฝังผลลัพธ์หรือสมการฟิสิกส์เป็นค่าคงที่
-- UI ภาษาไทย โดยคงชื่อทางเทคนิคภาษาอังกฤษ; identifier ในโค้ดเป็นภาษาอังกฤษ
+- UI เป็นภาษาอังกฤษตาม mockup ของ Lab 02 โดยคงชื่อทางเทคนิคภาษาอังกฤษ;
+  ข้อความ error/warning เป็นภาษาไทย; identifier ในโค้ดเป็นภาษาอังกฤษ
 - ห้ามแก้ไฟล์ Lab 1 ที่ root (`electrical.py`, `test_electrical.py`, ฯลฯ)
 - ห้าม commit `.venv/`, `.env`, `__pycache__/`
 - ห้ามอ้างว่า test ผ่านโดยไม่ได้รันจริง

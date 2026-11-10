@@ -67,10 +67,12 @@ python -m unittest discover -s tests -v
 python -m unittest discover -s lab02/tests -t lab02 -v
 ```
 
-ผลที่คาด: 16 tests ผ่านทั้งหมด 0 failures
+ผลที่คาด: 23 tests ผ่านทั้งหมด 0 failures
 
-- `tests/test_dc_bias.py` — ค่าอ้างอิง, validation, cutoff/saturation
-- `tests/test_web.py` — GET form, POST ผลลัพธ์, POST error, warning, CSS
+- `tests/test_dc_bias.py` — ค่าอ้างอิง, validation, cutoff/saturation,
+  ชื่อ field ในข้อความ error
+- `tests/test_web.py` — GET form, mockup layout, POST ผลลัพธ์, error
+  (ค่าว่าง/ขาด field/ค่าศูนย์), warning cutoff/saturation, คงค่าที่กรอก, CSS
 
 ## 5. หมายเหตุ
 
