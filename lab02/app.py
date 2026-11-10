@@ -21,10 +21,10 @@ def calculate():
     try:
         result = calculate_dc_bias(
             vcc=form["vcc"],
-            r1=kohm_to_ohm(form["r1"]),
-            r2=kohm_to_ohm(form["r2"]),
-            rc=kohm_to_ohm(form["rc"]),
-            re=kohm_to_ohm(form["re"]),
+            r1=kohm_to_ohm(form["r1"], "R1"),
+            r2=kohm_to_ohm(form["r2"], "R2"),
+            rc=kohm_to_ohm(form["rc"], "RC"),
+            re=kohm_to_ohm(form["re"], "RE"),
             beta=form["beta"],
             vbe=form["vbe"],
         )

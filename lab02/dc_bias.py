@@ -6,18 +6,20 @@ VCE_SATURATION = 0.2
 def _to_float(label, value):
     try:
         number = float(value)
-    except (TypeError, ValueError) as error:
+    except (TypeError, ValueError, OverflowError) as error:
         raise ValueError(f"{label} ต้องเป็นตัวเลข") from error
     if not math.isfinite(number):
         raise ValueError(f"{label} ต้องเป็นจำนวนจำกัด")
     return number
 
 
-def kohm_to_ohm(value_kohm):
+def kohm_to_ohm(value_kohm, label="ความต้านทาน"):
     """แปลง kΩ เป็น Ω (รับ str หรือ number)"""
-    value_ohm = _to_float("ความต้านทาน", value_kohm) * 1000
+    value_ohm = _to_float(label, value_kohm) * 1000
+    if not math.isfinite(value_ohm):
+        raise ValueError(f"{label} ต้องเป็นจำนวนจำกัด")
     if value_ohm <= 0:
-        raise ValueError("ความต้านทานต้องมากกว่าศูนย์")
+        raise ValueError(f"{label} ต้องมากกว่าศูนย์ (kΩ)")
     return value_ohm
 
 
@@ -62,7 +64,7 @@ def calculate_dc_bias(vcc, r1, r2, rc, re, beta, vbe):
                    "ค่าที่แสดงมาจากสมการ forward-active และไม่ใช่ค่าที่ใช้ได้จริง")
     elif vce < VCE_SATURATION:
         region = "Saturation"
-        warning = ("VCE < 0.2 V: อยู่ในโหมด Saturation หรือใกล้เคียง "
+        warning = (f"VCE < {VCE_SATURATION} V: อยู่ในโหมด Saturation หรือใกล้เคียง "
                    "ผลจาก forward-active approximation ไม่น่าเชื่อถือ")
     else:
         region = "Forward Active"

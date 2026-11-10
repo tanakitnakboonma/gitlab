@@ -68,6 +68,13 @@ class TestValidation(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     kohm_to_ohm(value)
 
+    def test_kohm_to_ohm_names_the_field(self):
+        for value in (0, "abc"):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError) as caught:
+                    kohm_to_ohm(value, "R1")
+                self.assertIn("R1", str(caught.exception))
+
 
 class TestRegion(unittest.TestCase):
     def test_cutoff_when_vth_below_vbe(self):
